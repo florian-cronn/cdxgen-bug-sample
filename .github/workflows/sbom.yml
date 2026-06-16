@@ -1,0 +1,30 @@
+name: SBOM Generation
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download cdx-audit release binary
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v12.3.1 \
+            --repo cdxgen/cdxgen \
+            --pattern 'cdxgen-linux-amd64' \
+            --pattern 'cdxgen-linux-amd64.sha256'
+          sha256sum -c cdxgen-linux-amd64.sha256
+          chmod +x cdxgen-linux-amd64
+      - name: Generate SBOM
+        run: ./cdxgen-linux-amd64 . --spec-version 1.6 --output sbom.json
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          archive: false
+          path: sbom.json
