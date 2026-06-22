@@ -19,7 +19,8 @@ jobs:
           gh run download 27922787328 \
             --repo cdxgen/cdxgen \
             --pattern 'cdx-binaries-linux-amd64'
-          mv cdx-binaries-linux-amd64 cdx-binaries-linux-amd64.zip
+      - name: Unzip artifact
+        run: |
           unzip cdx-binaries-linux-amd64.zip
           mv ./cdx-binaries-linux-amd64/cdxgen-linux-amd64 ./cdxgen-linux-amd64
           chmod +x cdxgen-linux-amd64
