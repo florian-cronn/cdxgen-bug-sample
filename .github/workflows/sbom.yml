@@ -18,7 +18,7 @@ jobs:
         run: |
           gh release download 27922787328 \
             --repo cdxgen/cdxgen \
-            --pattern 'cdxgen-linux-amd64 
+            --pattern 'cdxgen-linux-amd64' 
           chmod +x cdxgen-linux-amd64
       - name: Generate SBOM
         run: ./cdxgen-linux-amd64 . --spec-version 1.6 --output sbom.json
