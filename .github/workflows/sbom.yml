@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Download cdx-audit release binary
+      - name: Download cdxgen
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -22,7 +22,6 @@ jobs:
           ls -la
       - name: Unzip artifact
         run: |
-          unzip cdx-binaries-linux-amd64.zip
           mv ./cdx-binaries-linux-amd64/cdxgen-linux-amd64 ./cdxgen-linux-amd64
           chmod +x cdxgen-linux-amd64
       - name: Generate SBOM
