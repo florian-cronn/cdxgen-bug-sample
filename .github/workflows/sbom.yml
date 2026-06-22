@@ -16,7 +16,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download 27922787328 \
+          gh run download 27922787328 \
             --repo cdxgen/cdxgen \
             --pattern 'cdxgen-linux-amd64' 
           chmod +x cdxgen-linux-amd64
